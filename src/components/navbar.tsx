@@ -6,25 +6,30 @@ import { Menu, X } from 'lucide-react'
 import LetsTalkButton from './lets-talk-button'
 
 const navItems = [
-    { label: 'Work', href: '/work' },
-    { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
+  { label: 'Work', href: '/work' },
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
 ]
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white shadow-md mb-0">
+    <nav className="bg-white shadow-md sticky top-0 z-50 mb-0">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-[25px] font-bold text-black font-[branch] tracking-tight">Rakibul Islam Sarkar</span>
+              <span className="text-[25px] font-bold text-black font-[branch] tracking-tight">
+                Rakibul Islam Sarkar
+              </span>
             </Link>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
-            <div className="flex items-center  mr-8">
+
+          {/* Desktop Menu */}
+          <div className="hidden sm:flex sm:items-center sm:ml-6 gap-4">
+            <div className="flex items-center mr-8">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
@@ -37,6 +42,8 @@ export default function Navbar() {
             </div>
             <LetsTalkButton />
           </div>
+
+          {/* Mobile Menu Button */}
           <div className="flex items-center sm:hidden">
             <button
               type="button"
@@ -56,7 +63,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div
         className={`${isMobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}
         id="mobile-menu"
@@ -79,4 +86,3 @@ export default function Navbar() {
     </nav>
   )
 }
-

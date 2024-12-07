@@ -8,6 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        move: 'move 3s linear infinite',
+      },
+      keyframes: {
+        move: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

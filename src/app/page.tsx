@@ -1,101 +1,176 @@
-import Image from "next/image";
+"use client";
 
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useTransform, useScroll } from "framer-motion";
+
+interface CardProps {
+  card: {
+    url: string;
+    title: string;
+    id: number;
+  };
+}
+
+// Constants for static data
+const words = ["Creative", "Frontend", "Designer"];
+const cards = [
+  {
+    url: "1.png",
+    title: "Extracting the flavour of nature for Appco",
+    id: 1,
+  },
+  {
+    url: "2.jpg",
+    title: "Arriving at the station of great literature",
+    id: 2,
+  },
+  {
+    url: "3.jpg",
+    title: "Finding the simplicity in typeface design",
+    id: 3,
+  },
+  {
+    url: "4.jpg",
+    title: "Crafting a Bold Identity and Website for ProgresjaTech",
+    id: 4,
+  },
+];
+
+// Main component
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <>
+      <Marquee />
+      <SectionIntro />
+      <SectionWork />
+    </>
   );
 }
+
+// Marquee Component
+const Marquee = () => {
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const marquee = marqueeRef.current;
+    if (!marquee) return;
+
+    const animate = () => {
+      if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
+        marquee.scrollLeft = 0;
+      } else {
+        marquee.scrollLeft += 2;
+      }
+      requestAnimationFrame(animate);
+    };
+
+    const animation = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animation);
+  }, []);
+
+  return (
+    <div className="w-full h-screen flex items-center overflow-hidden">
+      <div
+        ref={marqueeRef}
+        className="whitespace-nowrap overflow-x-hidden w-full"
+      >
+        {[...Array(2)].map((_, index) => (
+          <div key={index} className="inline-flex">
+            {words.map((word) => (
+              <h1
+                key={word}
+                className="relative -translate-y-10 text-[450px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-20px]"
+              >
+                {word}
+              </h1>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Intro Section Component
+const SectionIntro = () => {
+  return (
+    <div className="w-full min-h-[70vh]">
+      <h1 className="font-[branch] text-[61.44px] leading-[75.12px] tracking-[-1px] text-center mx-auto max-w-[1300px]">
+        I am a digital-first brand identity & web designer and a Webflow, Figma
+        developer. I help companies connect with their audience, expand their
+        reach, and achieve greater commercial success.
+      </h1>
+    </div>
+  );
+};
+
+// Work Section Component
+const SectionWork = () => {
+  return (
+    <div className="w-full min-h-[50vh]">
+      <h1 className="text-[307.2px] font-[degularLight] tracking-[-10px] leading-[245.76px]">
+        Work
+      </h1>
+      <HorizontalScrollCarousel />
+    </div>
+  );
+};
+
+// Horizontal Scroll Carousel Component
+const HorizontalScrollCarousel = () => {
+  const targetRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-55%"]);
+
+  return (
+    <section ref={targetRef} className="relative h-[300vh]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+        <motion.div style={{ x }} className="flex gap-4">
+          {cards.map((card) => (
+            <Card card={card} key={card.id} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Card Component
+const Card: React.FC<CardProps> = ({ card }) => {
+  return (
+    <div
+      key={card.id}
+      className="group relative h-[650px] w-[812px] overflow-hidden flex flex-col rounded-3xl" // Consistent size and border radius
+    >
+      <ImageContainer url={card.url} />
+      <TextContainer title={card.title} />
+    </div>
+  );
+};
+
+// Image Container Component
+const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
+  return (
+    <div
+      style={{
+        backgroundImage: `url(${url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className="w-full h-[75%] object-cover rounded-t-3xl" // Adjusted height for consistency
+    />
+  );
+};
+
+// Text Container Component
+const TextContainer: React.FC<{ title: string }> = ({ title }) => {
+  return (
+    <div className="h-[25%] w-full flex items-center">
+      <p className="text-5xl font-[branch] max-w-[90%]">
+        {title}
+      </p>
+    </div>
+  );
+};

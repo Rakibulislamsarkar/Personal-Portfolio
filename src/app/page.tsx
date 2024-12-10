@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all"; // Import ScrollTrigger
@@ -46,9 +46,48 @@ export default function Home() {
       <SectionWork />
       <AboutWrapper />
       <ServiceMarquee />
+      <LoadingScreen />
     </>
   );
 }
+
+//Loading Screen
+
+const LoadingScreen: React.FC = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Simulate loading completion after 1 second
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div 
+      className={`fixed inset-0 z-50 flex items-center justify-center 
+      transition-all duration-1000 ease-in-out ${isLoaded ? 'invisible' : 'visible'}`}
+    >
+      <div className="relative w-full h-full overflow-hidden">
+        {/* Left Panel */}
+        <div 
+          className={`absolute top-0 left-0 w-1/2 h-full bg-black 
+          transform transition-all duration-1000 ease-in-out 
+          ${isLoaded ? '-translate-x-full' : 'translate-x-0'}`}
+        />
+        {/* Right Panel */}
+        <div 
+          className={`absolute top-0 right-0 w-1/2 h-full bg-black 
+          transform transition-all duration-1000 ease-in-out 
+          ${isLoaded ? 'translate-x-full' : 'translate-x-0'}`}
+        />
+      </div>
+    </div>
+  );
+};
+
 
 // Marquee Component
 const Marquee = () => {
@@ -105,25 +144,26 @@ const SectionIntro = () => {
         .map((word) => `<span class="word">${word}</span>`)
         .join(" ");
 
-      gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-      gsap.fromTo(
-        text.querySelectorAll(".word"),
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: text,
-            start: "top 80%",
-            end: "top 20%",
-            scrub: true,
-          },
-        }
-      );
+gsap.fromTo(
+  text.querySelectorAll(".word"),
+  { opacity: 0, y: 20 },
+  {
+    opacity: 1,
+    y: 0,
+    stagger: 0.3, 
+    duration: 1, 
+    ease: "power1.out", 
+    scrollTrigger: {
+      trigger: text,
+      start: "top 80%",
+      end: "top 20%",
+      scrub: 1.5, 
+    },
+  }
+);
+
     }
   }, []);
 
@@ -214,8 +254,8 @@ const TextContainer: React.FC<{ title: string }> = ({ title }) => {
 // About Wrapper Component
 const AboutWrapper = () => {
   return (
-    <section className="about-wrapper h-screen flex items-center p-8">
-      <div className="about-container flex flex-1 p-8 gap-3">
+    <section className="about-wrapper h-screen flex items-center mt-20">
+      <div className="about-container flex flex-1 px-2 gap-3">
         <div className="left-profile flex-1 flex items-center justify-center rounded-[12px] overflow-hidden h-screen">
           <Image
             src="/profile.jpg"

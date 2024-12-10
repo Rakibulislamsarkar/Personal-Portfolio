@@ -95,7 +95,7 @@ const Navbar = (props: Props) => {
         </Link>
         <button
           onClick={toggleMenu}
-          className="text-black uppercase text-sm font-medium cursor-pointer"
+          className="text-black uppercase text-sm font-medium cursor-pointer mr-5"
         >
           Menu
         </button>
@@ -114,7 +114,7 @@ const Navbar = (props: Props) => {
           {/* Overlay Header */}
           <div className="flex justify-between p-8">
             <Link href="/" className="text-black uppercase text-sm font-medium">
-              CodeGrid
+              rakibul islam sarkar
             </Link>
             <button
               onClick={toggleMenu}

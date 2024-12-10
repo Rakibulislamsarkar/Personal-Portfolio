@@ -300,57 +300,86 @@ const ServiceMarquee = () => {
           ))}
         </div>
       </div>
-<div className="card-wrapper h-screen flex items-center p-8">
-  <div className="card-container flex flex-col w-full gap-8">
-    {/* Top Cards */}
-    <div className="top-card flex w-full gap-8">
-      <div className="card-1 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
-        <Image
-          src="/artboard.jpg"
-          alt="product preview"
-          width={1364}
-          height={866}
-          quality={100}
-          className="object-cover w-full h-full opacity-20"
-        />
-        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          Digital First Branding
-        </h1>
-      </div>
-      <div className="card-2 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
-        <Image
-          src="/artboard.jpg"
-          alt="product preview"
-          width={1364}
-          height={866}
-          quality={100}
-          className="object-cover w-full h-full opacity-20"
-        />
-        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          Web Design & Development
-        </h1>
-      </div>
-    </div>
+      <div className="card-wrapper min-h-screen flex items-center p-8">
+        <div className="card-container flex flex-col w-full gap-8">
+          {/* Top Cards */}
+          <div className="top-card flex w-full gap-4 justify-between">
+            <div className="card-1 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+              <Image
+                src="/artboard.jpg"
+                alt="product preview"
+                width={1364}
+                height={866}
+                quality={100}
+                className="object-cover w-full h-full opacity-20"
+              />
+              <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
+                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tra">
+                  Digital First Branding
+                </h1>
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
+                  I specialise in creating digital-first branding that captures
+                  your brand's essence and connects with your audience across
+                  all digital platforms. From logos to social media graphics, I
+                  design cohesive brand identities that resonate in the online
+                  world, ensuring your brand remains consistent, memorable, and
+                  impactful in the digital age.
+                </p>
+              </div>
+            </div>
+            <div className="card-2 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+              <Image
+                src="/artboard.jpg"
+                alt="product preview"
+                width={1364}
+                height={866}
+                quality={100}
+                className="object-cover w-full h-full opacity-20"
+              />
+              <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
+                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
+                  Web Design & Development
+                </h1>
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
+                  I specialise in creating digital-first branding that captures
+                  your brand's essence and connects with your audience across
+                  all digital platforms. From logos to social media graphics, I
+                  design cohesive brand identities that resonate in the online
+                  world, ensuring your brand remains consistent, memorable, and
+                  impactful in the digital age.
+                </p>
+              </div>
+            </div>
+          </div>
 
-    {/* Bottom Card */}
-    <div className="bottom-card w-full">
-      <div className="card-3 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
-        <Image
-          src="/artboard.jpg"
-          alt="product preview"
-          width={1364}
-          height={866}
-          quality={100}
-          className="object-cover w-full h-full opacity-20"
-        />
-        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          Bespoke Design Experiences
-        </h1>
+          {/* Bottom Card */}
+          <div className="bottom-card w-full">
+            <div className="card-3 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+              <Image
+                src="/artboard.jpg"
+                alt="product preview"
+                width={1364}
+                height={866}
+                quality={100}
+                className="object-cover w-full h-full opacity-20"
+              />
+              <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50 w-1/2">
+                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
+                  Bespoke Design Experiences
+                </h1>
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
+                  I specialise in creating digital-first branding that captures
+                  your brand's essence and connects with your audience across
+                  all digital platforms. From logos to social media graphics, I
+                  design cohesive brand identities that resonate in the online
+                  world, ensuring your brand remains consistent, memorable, and
+                  impactful in the digital age.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
     </>
   );
 };

@@ -1,88 +1,187 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
-import LetsTalkButton from './lets-talk-button'
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { MoveUpRight } from "lucide-react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
-const navItems = [
-  { label: 'Work', href: '/work' },
-  { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/blog' },
-]
+type Props = {};
 
-export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+const menuLinks = [
+  { path: "/", label: "HOME" },
+  { path: "/work", label: "WORK" },
+  { path: "/about", label: "ABOUT" },
+  { path: "/blog", label: "BLOG" },
+  { path: "/contact", label: "CONTACT" },
+];
+
+const Navbar = (props: Props) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const container = useRef(null);
+  const tl = useRef<gsap.core.Timeline>();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // GSAP Animation for the Menu
+  useGSAP(
+    () => {
+      gsap.set(".menu-link-item-holder", { y: 75 });
+
+      tl.current = gsap
+        .timeline({ paused: true })
+        .to(".menu-overlay", {
+          duration: 1.25,
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          ease: "power4.inOut",
+        })
+        .to(".menu-link-item-holder", {
+          y: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power4.inOut",
+          delay: -0.75,
+        });
+    },
+    { scope: container }
+  );
+
+  useEffect(() => {
+    if (isMenuOpen && tl.current) {
+      tl.current.play();
+    } else if (tl.current) {
+      tl.current.reverse();
+    }
+  }, [isMenuOpen]);
+
+  // Scroll Detection for Navbar Visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Scrolling down
+        setIsNavbarVisible(false);
+      } else {
+        // Scrolling up
+        setIsNavbarVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50 mb-0">
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-[25px] font-bold text-black font-[branch] tracking-tight">
-                Rakibul Islam Sarkar
-              </span>
+    <div className="font-sans antialiased" ref={container}>
+      {/* Top Navigation Bar */}
+      <div
+        className={`fixed top-0 left-0 w-screen p-5 flex justify-between items-center z-10 transition-transform duration-300 ${
+          isNavbarVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <Link href="/" className="text-black uppercase text-sm font-medium">
+          rakibul islam sarkar
+        </Link>
+        <button
+          onClick={toggleMenu}
+          className="text-black uppercase text-sm font-medium cursor-pointer"
+        >
+          Menu
+        </button>
+      </div>
+
+      {/* Menu Overlay */}
+      <div
+        className={`menu-overlay fixed inset-0 w-screen h-screen z-20 bg-gradient-to-b from-[#c8ff00] to-[#96c700] ${
+          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+        style={{
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        }}
+      >
+        <div className="w-full h-full flex flex-col">
+          {/* Overlay Header */}
+          <div className="flex justify-between p-8">
+            <Link href="/" className="text-black uppercase text-sm font-medium">
+              CodeGrid
             </Link>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden sm:flex sm:items-center sm:ml-6 gap-4">
-            <div className="flex items-center mr-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="px-3 py-2 rounded-md text-[20px] leading-[26.112px] text-black hover:text-gray-900 font-[degularRegular] tracking-tight"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            <LetsTalkButton />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center sm:hidden">
             <button
-              type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-              aria-controls="mobile-menu"
-              aria-expanded={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMenu}
+              className="text-black uppercase text-sm font-medium cursor-pointer"
             >
-              <span className="sr-only">Open main menu</span>
-              {isMobileMenuOpen ? (
-                <X className="block h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-6 w-6" aria-hidden="true" />
-              )}
+              Close
             </button>
           </div>
-        </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`${isMobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}
-        id="mobile-menu"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="px-3 py-2">
-            <LetsTalkButton />
+          {/* Menu Items */}
+          <div className="flex-1 flex flex-col items-center">
+            <nav className="space-y-2 px-4 lg:px-0 lg:ml-[-20em] max-w-full">
+              {menuLinks.map((link, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden w-max [clip-path:polygon(0_0,_100%_0,_100%_100%,_0%_100%)] block text-black text-[80px] hover:opacity-60 transition-opacity leading-[82%] tracking-[-0.02em] relative"
+                >
+                  <div className="menu-link-item-holder">
+                    <Link
+                      href={link.path}
+                      className="text-black text-[80px] font-normal cursor-pointer"
+                      onClick={toggleMenu}
+                    >
+                      {link.label}
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          {/* Footer Section */}
+          <div className="flex items-center justify-between px-8 mb-3">
+            <div className="menu-info flex justify-between w-full max-w-5xl font-medium leading-3">
+              <div className="menu-info-col flex flex-col space-y-2">
+                <a href="#" className="flex items-center space-x-2">
+                  <span className="uppercase">Instagram</span>{" "}
+                  <MoveUpRight size={12} strokeWidth={2.5} />
+                </a>
+                <a href="#" className="flex items-center space-x-2">
+                  <span className="uppercase">LinkedIn</span>{" "}
+                  <MoveUpRight size={12} strokeWidth={2.5} />
+                </a>
+                <a href="#" className="flex items-center space-x-2">
+                  <span className="uppercase">Github</span>{" "}
+                  <MoveUpRight size={12} strokeWidth={2.5} />
+                </a>
+                <a href="#" className="flex items-center space-x-2">
+                  <span className="uppercase">Dribbble</span>{" "}
+                  <MoveUpRight size={12} strokeWidth={2.5} />
+                </a>
+              </div>
+              <div className="menu-info-col flex flex-col space-y-2 justify-center">
+                <p className="uppercase">rakibulislam1019@gmail.com</p>
+                <p>2342 232 343</p>
+              </div>
+            </div>
+            <div className="menu-preview text-center mt-8">
+              <p className="text-black text-xl font-semibold cursor-pointer">
+                View Showreel
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </nav>
-  )
-}
+    </div>
+  );
+};
+
+export default Navbar;

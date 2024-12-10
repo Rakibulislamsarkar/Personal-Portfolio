@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all"; // Import ScrollTrigger
 import { motion, useTransform, useScroll } from "framer-motion";
@@ -43,6 +44,8 @@ export default function Home() {
       <Marquee />
       <SectionIntro />
       <SectionWork />
+      <AboutWrapper />
+      <ServiceMarquee />
     </>
   );
 }
@@ -90,20 +93,18 @@ const Marquee = () => {
   );
 };
 
-// Intro Section Component with Staggered Text Animation Triggered by Scroll
 const SectionIntro = () => {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     const text = textRef.current;
     if (text) {
-      const words = text.innerText.split(" "); // Split text into words
+      const words = text.innerText.split(" ");
 
       text.innerHTML = words
-        .map((word) => `<span class="word">${word}</span>`) // Wrap each word in a span
+        .map((word) => `<span class="word">${word}</span>`)
         .join(" ");
 
-      // ScrollTrigger animation for staggered text
       gsap.registerPlugin(ScrollTrigger);
 
       gsap.fromTo(
@@ -112,14 +113,14 @@ const SectionIntro = () => {
         {
           opacity: 1,
           y: 0,
-          stagger: 0.1, // Stagger effect
+          stagger: 0.1,
           duration: 0.5,
           ease: "power2.out",
           scrollTrigger: {
-            trigger: text, // Trigger when text enters the viewport
-            start: "top 80%", // Start when top of the text is 80% from the top of the viewport
-            end: "top 20%", // End when top of the text is 20% from the top of the viewport
-            scrub: true, // Scrub with the scroll
+            trigger: text,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: true,
           },
         }
       );
@@ -143,8 +144,8 @@ const SectionIntro = () => {
 // Work Section Component
 const SectionWork = () => {
   return (
-    <div className="w-full min-h-[50vh]">
-      <h1 className="text-[307.2px] font-[degularLight] tracking-[-10px] leading-[245.76px]">
+    <div className="w-full min-h-[50vh] ">
+      <h1 className="text-[307.2px] font-[degularLight] tracking-[-10px] leading-[245.76px] px-4">
         Work
       </h1>
       <HorizontalScrollCarousel />
@@ -207,5 +208,149 @@ const TextContainer: React.FC<{ title: string }> = ({ title }) => {
     <div className="h-[25%] w-full flex items-center">
       <p className="text-5xl font-[branch] max-w-[90%]">{title}</p>
     </div>
+  );
+};
+
+// About Wrapper Component
+const AboutWrapper = () => {
+  return (
+    <section className="about-wrapper h-screen flex items-center p-8">
+      <div className="about-container flex flex-1 p-8 gap-3">
+        <div className="left-profile flex-1 flex items-center justify-center rounded-[12px] overflow-hidden h-screen">
+          <Image
+            src="/profile.jpg"
+            alt="product preview"
+            width={1364}
+            height={866}
+            quality={100}
+            className="object-cover w-full h-full"
+          />
+        </div>
+
+        <div className="right-about flex-1 px-10 py-5 text-gray-800 flex flex-col justify-between bg-white rounded-[12px] h-screen">
+          <h1 className="text-9xl font-bold font-[degularRegular] leading-[107.52px]">
+            Hello there,
+            <br />
+            I'm Rakibul
+          </h1>
+          <div className="font-[degularLight] flex flex-col gap-4 text-2xl leading-[30px] tracking-[-0.2px]">
+            <p>
+              I design bespoke brand identities and websites that fit each
+              company like a well-tailored suit, ensuring your brand stands out
+              digitally and physically. Specialising in brand identity design,
+              I'm also a web designer and Webflow developer with a keen eye for
+              typography and motion design.
+            </p>
+            <p>
+              I honed my skills at Coventry University and have created
+              impactful visuals for over four years. Guided by Leonardo da
+              Vinci's principle that "Simplicity is the ultimate
+              sophistication," I bring clarity and elegance to each project.
+            </p>
+            <p>
+              Outside work, I enjoy photography, travelling, and staying active
+              through running, resistance training, and playing volleyball.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Services Marquee
+
+const ServiceMarquee = () => {
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const marquee = marqueeRef.current;
+    if (!marquee) return;
+
+    const animate = () => {
+      if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
+        marquee.scrollLeft = 0;
+      } else {
+        marquee.scrollLeft += 2;
+      }
+      requestAnimationFrame(animate);
+    };
+
+    const animation = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animation);
+  }, []);
+
+  return (
+    <>
+      <div className="w-full py-20 flex items-center overflow-hidden">
+        <div
+          ref={marqueeRef}
+          className="whitespace-nowrap overflow-x-hidden w-full"
+        >
+          {[...Array(2)].map((_, index) => (
+            <div key={index} className="inline-flex">
+              {["Service -", "Service -", "Service -"].map((word) => (
+                <h1
+                  key={word}
+                  className="relative -translate-y-10 text-[250px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-5px]"
+                >
+                  {word}
+                </h1>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+<div className="card-wrapper h-screen flex items-center p-8">
+  <div className="card-container flex flex-col w-full gap-8">
+    {/* Top Cards */}
+    <div className="top-card flex w-full gap-8">
+      <div className="card-1 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
+        <Image
+          src="/artboard.jpg"
+          alt="product preview"
+          width={1364}
+          height={866}
+          quality={100}
+          className="object-cover w-full h-full opacity-20"
+        />
+        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Digital First Branding
+        </h1>
+      </div>
+      <div className="card-2 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
+        <Image
+          src="/artboard.jpg"
+          alt="product preview"
+          width={1364}
+          height={866}
+          quality={100}
+          className="object-cover w-full h-full opacity-20"
+        />
+        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Web Design & Development
+        </h1>
+      </div>
+    </div>
+
+    {/* Bottom Card */}
+    <div className="bottom-card w-full">
+      <div className="card-3 flex-1 h-64 rounded-lg shadow-md relative overflow-hidden">
+        <Image
+          src="/artboard.jpg"
+          alt="product preview"
+          width={1364}
+          height={866}
+          quality={100}
+          className="object-cover w-full h-full opacity-20"
+        />
+        <h1 className="absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Bespoke Design Experiences
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </>
   );
 };

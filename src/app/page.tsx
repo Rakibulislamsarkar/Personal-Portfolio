@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, FC } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all"; // Import ScrollTrigger
 import { motion, useTransform, useScroll } from "framer-motion";
+import Link from "next/link";
 
 interface CardProps {
   card: {
@@ -41,12 +42,13 @@ const cards = [
 export default function Home() {
   return (
     <>
+      <LoadingScreen />
       <Marquee />
       <SectionIntro />
       <SectionWork />
       <AboutWrapper />
       <ServiceMarquee />
-      <LoadingScreen />
+      <FooterSection />
     </>
   );
 }
@@ -66,28 +68,29 @@ const LoadingScreen: React.FC = () => {
   }, []);
 
   return (
-    <div 
+    <div
       className={`fixed inset-0 z-50 flex items-center justify-center 
-      transition-all duration-1000 ease-in-out ${isLoaded ? 'invisible' : 'visible'}`}
+      transition-all duration-1000 ease-in-out ${
+        isLoaded ? "invisible" : "visible"
+      }`}
     >
       <div className="relative w-full h-full overflow-hidden">
         {/* Left Panel */}
-        <div 
+        <div
           className={`absolute top-0 left-0 w-1/2 h-full bg-black 
           transform transition-all duration-1000 ease-in-out 
-          ${isLoaded ? '-translate-x-full' : 'translate-x-0'}`}
+          ${isLoaded ? "-translate-x-full" : "translate-x-0"}`}
         />
         {/* Right Panel */}
-        <div 
+        <div
           className={`absolute top-0 right-0 w-1/2 h-full bg-black 
           transform transition-all duration-1000 ease-in-out 
-          ${isLoaded ? 'translate-x-full' : 'translate-x-0'}`}
+          ${isLoaded ? "translate-x-full" : "translate-x-0"}`}
         />
       </div>
     </div>
   );
 };
-
 
 // Marquee Component
 const Marquee = () => {
@@ -144,26 +147,25 @@ const SectionIntro = () => {
         .map((word) => `<span class="word">${word}</span>`)
         .join(" ");
 
-gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger);
 
-gsap.fromTo(
-  text.querySelectorAll(".word"),
-  { opacity: 0, y: 20 },
-  {
-    opacity: 1,
-    y: 0,
-    stagger: 0.3, 
-    duration: 1, 
-    ease: "power1.out", 
-    scrollTrigger: {
-      trigger: text,
-      start: "top 80%",
-      end: "top 20%",
-      scrub: 1.5, 
-    },
-  }
-);
-
+      gsap.fromTo(
+        text.querySelectorAll(".word"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.3,
+          duration: 1,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: text,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1.5,
+          },
+        }
+      );
     }
   }, []);
 
@@ -321,16 +323,16 @@ const ServiceMarquee = () => {
 
   return (
     <>
-      <div className="w-full py-20 flex items-center overflow-hidden">
+      <div className="w-full py-20 flex items-center overflow-hidden ">
         <div
           ref={marqueeRef}
           className="whitespace-nowrap overflow-x-hidden w-full"
         >
           {[...Array(2)].map((_, index) => (
             <div key={index} className="inline-flex">
-              {["Service -", "Service -", "Service -"].map((word) => (
+              {["Service - 1", "Service - 2", "Service - 3"].map((word, index) => (
                 <h1
-                  key={word}
+                  key={`${word}-${index}`}
                   className="relative -translate-y-10 text-[250px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-5px]"
                 >
                   {word}
@@ -340,8 +342,8 @@ const ServiceMarquee = () => {
           ))}
         </div>
       </div>
-      <div className="card-wrapper min-h-screen flex items-center p-8">
-        <div className="card-container flex flex-col w-full gap-8">
+      <div className="card-wrapper min-h-screen flex items-center p-8 ">
+        <div className="card-container flex flex-col w-full gap-8 mb-20">
           {/* Top Cards */}
           <div className="top-card flex w-full gap-4 justify-between">
             <div className="card-1 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
@@ -357,7 +359,7 @@ const ServiceMarquee = () => {
                 <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tra">
                   Digital First Branding
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
                   I specialise in creating digital-first branding that captures
                   your brand's essence and connects with your audience across
                   all digital platforms. From logos to social media graphics, I
@@ -380,13 +382,13 @@ const ServiceMarquee = () => {
                 <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
                   Web Design & Development
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
-                  I specialise in creating digital-first branding that captures
-                  your brand's essence and connects with your audience across
-                  all digital platforms. From logos to social media graphics, I
-                  design cohesive brand identities that resonate in the online
-                  world, ensuring your brand remains consistent, memorable, and
-                  impactful in the digital age.
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
+                  design and develop user-friendly websites that blend
+                  aesthetics with functionality. Each site is tailored to meet
+                  your specific needs, with responsive layouts and intuitive
+                  navigation. My goal is to create an engaging online experience
+                  that not only looks great but also drives results and keeps
+                  users coming back.
                 </p>
               </div>
             </div>
@@ -407,13 +409,13 @@ const ServiceMarquee = () => {
                 <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
                   Bespoke Design Experiences
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[29.497px]">
-                  I specialise in creating digital-first branding that captures
-                  your brand's essence and connects with your audience across
-                  all digital platforms. From logos to social media graphics, I
-                  design cohesive brand identities that resonate in the online
-                  world, ensuring your brand remains consistent, memorable, and
-                  impactful in the digital age.
+                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
+                  Every brand has a unique story, and I craft bespoke design
+                  experiences that reflect your distinct identity. From custom
+                  illustrations to tailored visual elements, I bring your vision
+                  to life with creativity and precision. My designs are
+                  carefully curated to provide a memorable and personalised
+                  experience that stands out in any industry.
                 </p>
               </div>
             </div>
@@ -423,3 +425,92 @@ const ServiceMarquee = () => {
     </>
   );
 };
+
+// Footer
+
+const navItems = [
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/blog', label: 'Blog' },
+]
+
+const socialLinks = [
+  { href: 'https://instagram.com', label: 'Instagram' },
+  { href: 'https://twitter.com', label: 'Twitter' },
+  { href: 'https://linkedin.com', label: 'LinkedIn' },
+  { href: 'https://behance.net', label: 'Behance' },
+]
+
+export const FooterSection: FC = () => {
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    
+    console.log('Submitting email:', email)
+    setEmail('')
+  }
+
+  return (
+    <footer className="w-full min-h-screen bg-[#0b1215] text-[#f9fdfe] font-[degularRegular] flex flex-col justify-between p-8">
+      <h2 className="text-7xl sm:text-8xl md:text-9xl lg:text-[15rem] tracking-tighter mb-12">
+        Let's talk
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+        <nav aria-label="Footer navigation">
+          <ul className="space-y-4 ">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-2xl md:text-3xl lg:text-4xl hover:underline">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav aria-label="Social media links">
+          <ul className="space-y-4">
+            {socialLinks.map((link) => (
+              <li key={link.href}>
+                <Link 
+                  href={link.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-2xl md:text-3xl lg:text-4xl hover:underline"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl mb-4 font-[branch]">
+            Leave an email and I'll get back to you
+          </h3>
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+              className="p-5 bg-[#333333] rounded-full w-full outline-none focus:ring-2 focus:ring-blue-600 transition-all shadow-[rgba(22,22,22,0.4)_0px_0px_20px_0px,rgba(59,59,59,0.1)_0px_1px_20px_4px_inset,rgba(160,160,160,0.22)_-1px_-1px_5px_0px,rgba(14,14,14,0.89)_1px_1px_7px_0px]"
+            />
+            <button 
+              type="submit"
+              className="p-5 bg-[#f4f4f4] text-black rounded-full hover:bg-white transition-colors"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className="flex justify-between border-t mt-5">
+        <div>Cookies & Privacy</div>
+        <div>Copyright © 2024. Rakibul Islam Sarkar. All Rights Reserved</div>
+      </div>
+    </footer>
+  )
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { ReactLenis, useLenis } from "lenis/react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,8 +38,10 @@ const degularLight = localFont({
 export const metadata: Metadata = {
   title: "Rakibul Islam | Brand & Web Designer",
   description:
-    "I am a digital-first branding frontend designer, enabling companies to connect with their audience, extend their reach and enjoy grater commercial success.",
+    "I am a digital-first branding frontend designer, enabling companies to connect with their audience, extend their reach and enjoy greater commercial success.",
+  icons: [{ rel: "icon", url: "/metadata.png" }],  
 };
+
 
 export default function RootLayout({
   children,
@@ -52,7 +55,9 @@ export default function RootLayout({
       >
         <Navbar />
 
-        {children}
+        <ReactLenis root options={{ autoRaf: true }}>
+          {children}
+        </ReactLenis>
       </body>
     </html>
   );

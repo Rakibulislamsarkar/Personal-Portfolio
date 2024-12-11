@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "@studio-freight/lenis": "^1.0.42",
     "framer-motion": "^11.13.1",
     "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
     "lucide-react": "^0.468.0",
     "next": "15.0.3",
     "react": "^18.2.0",

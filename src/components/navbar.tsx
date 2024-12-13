@@ -14,9 +14,15 @@ const menuLinks = [
   { path: "/contact", label: "CONTACT" },
 ];
 const socialLinks = [
-  { href: "https://www.instagram.com/rakibul_islam_sarkar/", label: "Instagram" },
+  {
+    href: "https://www.instagram.com/rakibul_islam_sarkar/",
+    label: "Instagram",
+  },
   { href: "https://x.com/Rakibul1019", label: "Twitter" },
-  { href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256", label: "LinkedIn" },
+  {
+    href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256",
+    label: "LinkedIn",
+  },
   { href: "https://github.com/Rakibulislamsarkar", label: "Github" },
   { href: "https://dribbble.com/Kozuki_Oden", label: "Dribbble" },
 ];
@@ -152,35 +158,37 @@ const Navbar = () => {
           </div>
 
           {/* Footer Section */}
-          <nav aria-label="Social media links" className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 mb-6">
-  <div className="menu-info flex flex-col md:flex-row justify-between w-full max-w-5xl font-medium leading-3 space-y-4 md:space-y-0">
-    <ul className="menu-info-col flex flex-col space-y-2">
-      {socialLinks.map((link) => (
-        <li key={link.href} className="flex items-center space-x-2">
-          <Link
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="uppercase text-sm md:text-base flex items-center space-x-2 hover:underline"
+          <nav
+            aria-label="Social media links"
+            className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 mb-6"
           >
-            <span>{link.label}</span>
-            <MoveUpRight size={12} strokeWidth={2.5} />
-          </Link>
-        </li>
-      ))}
-    </ul>
-    <div className="menu-info-col flex flex-col space-y-2 items-start md:items-center text-sm md:text-base">
-      <p className="uppercase">rakibulislam1019@gmail.com</p>
-      <p>2342 232 343</p>
-    </div>
-  </div>
-  <div className="menu-preview text-center mt-6 md:mt-0">
-    <p className="text-black text-lg md:text-xl font-semibold cursor-pointer">
-      View Showreel
-    </p>
-  </div>
-</nav>
-
+            <div className="menu-info flex flex-col md:flex-row md:items-center justify-between w-full max-w-5xl font-medium leading-3 space-y-4 md:space-y-0">
+              <ul className="menu-info-col flex flex-col space-y-2">
+                {socialLinks.map((link) => (
+                  <li key={link.href} className="flex items-center space-x-2">
+                    <Link
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="uppercase text-sm md:text-base flex items-center space-x-2 hover:underline"
+                    >
+                      <span>{link.label}</span>
+                      <MoveUpRight size={12} strokeWidth={2.5} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="menu-info-col flex flex-col space-y-2 items-start text-sm md:text-base">
+                <p className="uppercase">rakibulislam1019@gmail.com</p>
+                <p>2342 232 343</p>
+              </div>
+            </div>
+            <div className="menu-preview text-center mt-6 md:mt-0">
+              <p className="text-black text-lg md:text-xl font-semibold cursor-pointer">
+                View Showreel
+              </p>
+            </div>
+          </nav>
         </div>
       </div>
     </div>

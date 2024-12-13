@@ -123,7 +123,7 @@ const Marquee = () => {
             {["Creative", "Frontend", "Designer"].map((word) => (
               <h1
                 key={word}
-                className="relative -translate-y-10 text-[450px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-20px]"
+                className="relative -translate-y-10 text-[15rem] lg:text-[250px] font-[degularLight] leading-300 mx-16  tracking-[-20px]"
               >
                 {word}
               </h1>
@@ -187,7 +187,7 @@ const SectionIntro = () => {
 const SectionWork = () => {
   return (
     <div className="w-full min-h-[50vh] ">
-      <h1 className="text-[307.2px] font-[degularLight] tracking-[-10px] leading-[245.76px] px-4">
+      <h1 className="text-[150px] lg:text-[307.2px] font-[degularLight] tracking-[-10px] leading-[245.76px] px-4">
         Work
       </h1>
       <HorizontalScrollCarousel />
@@ -196,6 +196,22 @@ const SectionWork = () => {
 };
 
 // Horizontal Scroll Carousel Component
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addListener(listener);
+    return () => media.removeListener(listener);
+  }, [matches, query]);
+
+  return matches;
+}
+
 const HorizontalScrollCarousel: React.FC = () => {
   const targetRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -203,13 +219,14 @@ const HorizontalScrollCarousel: React.FC = () => {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-55%"]);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] md:h-[300vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+    <section ref={targetRef} className="relative h-auto md:h-[300vh]">
+      <div className="md:sticky md:top-0 flex flex-col md:flex-row md:h-screen items-center overflow-x-hidden">
         <motion.div
-          style={{ x }}
-          className="flex flex-col md:flex-row gap-4 px-4 md:px-0"
+          style={{ x: isDesktop ? x : "none" }}
+          className="flex flex-col md:flex-row gap-4 px-4 md:px-0 w-full md:w-auto"
         >
           {cards.map((card) => (
             <Card card={card} key={card.id} />
@@ -225,7 +242,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
   return (
     <div
       key={card.id}
-      className="group relative h-[500px] md:h-[650px] w-full md:w-[812px] overflow-hidden flex flex-col rounded-3xl mb-8 md:mb-0"
+      className="group relative h-[750px] md:h-[650px] w-full md:w-[812px] overflow-hidden flex flex-col rounded-3xl "
     >
       <ImageContainer url={card.url} />
       <TextContainer title={card.title} />
@@ -242,7 +259,7 @@ const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="w-full h-[70%] md:h-[75%] object-cover rounded-t-3xl"
+      className="w-full h-[100%] md:h-[75%] object-cover rounded-3xl"
     />
   );
 };
@@ -250,8 +267,8 @@ const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
 // Text Container Component
 const TextContainer: React.FC<{ title: string }> = ({ title }) => {
   return (
-    <div className="h-[30%] md:h-[25%] w-full flex items-center p-4 md:p-6">
-      <p className="text-3xl md:text-5xl font-[branch] max-w-full md:max-w-[90%]">
+    <div className="h-[30%] md:h-[25%] w-full flex mt-4">
+      <p className="text-4xl md:text-5xl font-[branch] max-w-full md:max-w-[90%] leading-8">
         {title}
       </p>
     </div>
@@ -261,10 +278,15 @@ const TextContainer: React.FC<{ title: string }> = ({ title }) => {
 // About Wrapper Component
 const AboutWrapper = () => {
   return (
-    <section className="about-wrapper h-auto sm:h-screen flex items-center mt-20">
-      <div className="about-container flex flex-col sm:flex-row px-4 gap-3  w-full">
+    <section className="about-wrapper min-h-screen flex items-center mt-20">
+      <div className="about-container flex flex-col lg:flex-row gap-3 w-full px-4 md:px-6">
+      <div className="flex lg:hidden">
+          <h1 className="text-[150px] font-[degularLight] tracking-[-10px] leading-[245.76px] px-4">
+            About
+          </h1>
+        </div>
         {/* Left Profile Section */}
-        <div className="left-profile flex-1 flex items-center justify-center rounded-[12px] overflow-hidden h-screen">
+        <div className="left-profile flex-1 flex items-center justify-center rounded-[12px] overflow-hidden h-auto lg:h-screen">
           <Image
             src="/profile.jpg"
             alt="product preview"
@@ -276,11 +298,11 @@ const AboutWrapper = () => {
         </div>
 
         {/* Right About Section */}
-        <div className="right-about flex-1 px-6 md:px-10 py-6 sm:py-10 text-gray-800 flex flex-col justify-between gap-11 bg-white rounded-[12px] h-auto sm:h-screen">
-          <h1 className="text-4xl md:text-6xl lg:text-9xl font-bold font-[degularRegular] leading-[50px] sm:leading-[70px] lg:leading-[107.52px]">
+        <div className="right-about flex-1 px-6 md:px-10 py-6 md:py-10 text-gray-800 flex flex-col justify-between gap-6 sm:gap-8 lg:gap-6 xl:gap-8 bg-white rounded-[12px] h-auto lg:h-screen overflow-y-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-9xl font-bold font-[degularRegular] leading-[50px] md:leading-[60px] lg:leading-[70px] xl:leading-[107.52px]">
             Hello there, I&apos;m Rakibul
           </h1>
-          <div className="font-[degularLight] flex flex-col text-base sm:text-2xl lg:text-2xl leading-[20px] md:leading-[30px] lg:leading-[30px] tracking-[-0.2px] sm:tracking-[-0.5px]">
+          <div className="font-[degularLight] flex flex-col gap-4 text-base md:text-lg lg:text-xl xl:text-2xl leading-[20px] md:leading-[24px] lg:leading-[28px] xl:leading-[30px] tracking-[-0.2px] md:tracking-[-0.5px]">
             <p>
               I design bespoke brand identities and websites that fit each
               company like a well-tailored suit, ensuring your brand stands out
@@ -351,7 +373,7 @@ const ServiceMarquee = () => {
         </div>
       </div>
       <div className="card-wrapper min-h-screen flex items-center p-8">
-        <div className="card-container flex flex-col  w-full gap-8 mb-20">
+        <div className="card-container flex flex-col w-full gap-8 mb-20">
           {/* Top Cards */}
           <div className="top-card flex flex-col sm:flex-row w-full gap-4 justify-between">
             <div className="card-1 flex-1 h-auto sm:h-[437px] rounded-lg shadow-md relative overflow-hidden">
@@ -364,10 +386,10 @@ const ServiceMarquee = () => {
                 className="object-cover w-full h-full opacity-20"
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
-                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-3px]">
+                <h1 className="font-[degularRegular] text-[15vw] sm:text-[10vw] md:text-[8vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-3px]">
                   Digital First Branding
                 </h1>
-                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
+                <p className="text-[4vw] sm:text-[5vw] md:text-[4.5vw] lg:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
                   I specialize in creating digital-first branding that captures
                   your brand's essence and connects with your audience across
                   all platforms. From logos to social media graphics, I design
@@ -386,10 +408,10 @@ const ServiceMarquee = () => {
                 className="object-cover w-full h-full opacity-20"
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
-                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
+                <h1 className="font-[degularRegular] text-[15vw] sm:text-[10vw] md:text-[8vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
                   Web Design & Development
                 </h1>
-                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
+                <p className="text-[4vw] sm:text-[5vw] md:text-[4.5vw] lg:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
                   I design and develop user-friendly websites that blend
                   aesthetics with functionality. Each site is tailored to meet
                   your specific needs, with responsive layouts and intuitive
@@ -413,10 +435,10 @@ const ServiceMarquee = () => {
                 className="object-cover w-full h-full opacity-20"
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50 w-full sm:w-1/2">
-                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
+                <h1 className="font-[degularRegular] text-[15vw] sm:text-[10vw] md:text-[8vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
                   Bespoke Design Experiences
                 </h1>
-                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
+                <p className="text-[4vw] sm:text-[5vw] md:text-[4.5vw] lg:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
                   Every brand has a unique story, and I craft bespoke design
                   experiences that reflect your distinct identity. From custom
                   illustrations to tailored visual elements, I bring your vision

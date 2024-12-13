@@ -468,6 +468,7 @@ const socialLinks = [
   { href: "https://www.instagram.com/rakibul_islam_sarkar/", label: "Instagram" },
   { href: "https://x.com/Rakibul1019", label: "Twitter" },
   { href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256", label: "LinkedIn" },
+  { href: "https://github.com/Rakibulislamsarkar", label: "Github" },
   { href: "https://dribbble.com/Kozuki_Oden", label: "Dribbble" },
 ];
 

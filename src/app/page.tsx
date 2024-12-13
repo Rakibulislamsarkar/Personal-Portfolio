@@ -207,8 +207,8 @@ const HorizontalScrollCarousel: React.FC = () => {
   return (
     <section ref={targetRef} className="relative h-[300vh] md:h-[300vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div 
-          style={{ x }} 
+        <motion.div
+          style={{ x }}
           className="flex flex-col md:flex-row gap-4 px-4 md:px-0"
         >
           {cards.map((card) => (
@@ -251,7 +251,9 @@ const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
 const TextContainer: React.FC<{ title: string }> = ({ title }) => {
   return (
     <div className="h-[30%] md:h-[25%] w-full flex items-center p-4 md:p-6">
-      <p className="text-3xl md:text-5xl font-[branch] max-w-full md:max-w-[90%]">{title}</p>
+      <p className="text-3xl md:text-5xl font-[branch] max-w-full md:max-w-[90%]">
+        {title}
+      </p>
     </div>
   );
 };
@@ -307,6 +309,7 @@ const AboutWrapper = () => {
 
 const ServiceMarquee = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const marquee = marqueeRef.current;
     if (!marquee) return;
@@ -326,7 +329,7 @@ const ServiceMarquee = () => {
 
   return (
     <>
-      <div className="w-full py-20 flex items-center overflow-hidden ">
+      <div className="w-full lg:py-20 flex items-center overflow-hidden ">
         <div
           ref={marqueeRef}
           className="whitespace-nowrap overflow-x-hidden w-full"
@@ -337,7 +340,7 @@ const ServiceMarquee = () => {
                 (word, index) => (
                   <h1
                     key={`${word}-${index}`}
-                    className="relative -translate-y-10 text-[250px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-5px]"
+                    className="relative -translate-y-10 text-[15rem] lg:text-[250px] font-[degularLight] leading-300 mx-16  lg:tracking-[-5px] tracking-[-1.5rem]"
                   >
                     {word}
                   </h1>
@@ -347,11 +350,11 @@ const ServiceMarquee = () => {
           ))}
         </div>
       </div>
-      <div className="card-wrapper min-h-screen flex items-center p-8 ">
-        <div className="card-container flex flex-col w-full gap-8 mb-20">
+      <div className="card-wrapper min-h-screen flex items-center p-8">
+        <div className="card-container flex flex-col  w-full gap-8 mb-20">
           {/* Top Cards */}
-          <div className="top-card flex w-full gap-4 justify-between">
-            <div className="card-1 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+          <div className="top-card flex flex-col sm:flex-row w-full gap-4 justify-between">
+            <div className="card-1 flex-1 h-auto sm:h-[437px] rounded-lg shadow-md relative overflow-hidden">
               <Image
                 src="/artboard.jpg"
                 alt="product preview"
@@ -361,20 +364,19 @@ const ServiceMarquee = () => {
                 className="object-cover w-full h-full opacity-20"
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
-                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tra">
-                  Digital First Branding
+                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-3px]">
+                Digital First Branding
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
-                  I specialise in creating digital-first branding that captures
-                  your brand&aposs essence and connects with your audience
-                  across all digital platforms. From logos to social media
-                  graphics, I design cohesive brand identities that resonate in
-                  the online world, ensuring your brand remains consistent,
-                  memorable, and impactful in the digital age.
+                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
+                  I specialize in creating digital-first branding that captures
+                  your brand's essence and connects with your audience across
+                  all platforms. From logos to social media graphics, I design
+                  cohesive identities that ensure your brand is consistent,
+                  memorable, and impactful online.
                 </p>
               </div>
             </div>
-            <div className="card-2 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+            <div className="card-2 flex-1 h-auto sm:h-[437px] rounded-lg shadow-md relative overflow-hidden">
               <Image
                 src="/artboard.jpg"
                 alt="product preview"
@@ -384,11 +386,11 @@ const ServiceMarquee = () => {
                 className="object-cover w-full h-full opacity-20"
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
-                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
+                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
                   Web Design & Development
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
-                  design and develop user-friendly websites that blend
+                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
+                  I design and develop user-friendly websites that blend
                   aesthetics with functionality. Each site is tailored to meet
                   your specific needs, with responsive layouts and intuitive
                   navigation. My goal is to create an engaging online experience
@@ -401,7 +403,7 @@ const ServiceMarquee = () => {
 
           {/* Bottom Card */}
           <div className="bottom-card w-full">
-            <div className="card-3 flex-1 h-[437px] rounded-lg shadow-md relative overflow-hidden">
+            <div className="card-3 flex-1 h-auto sm:h-[437px] rounded-lg shadow-md relative overflow-hidden">
               <Image
                 src="/artboard.jpg"
                 alt="product preview"
@@ -410,11 +412,11 @@ const ServiceMarquee = () => {
                 quality={100}
                 className="object-cover w-full h-full opacity-20"
               />
-              <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50 w-1/2">
-                <h1 className="font-[degularLight] text-[92.16px] font-bold leading-[82.16px] tracking-[-2px]">
+              <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50 w-full sm:w-1/2">
+                <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-px]">
                   Bespoke Design Experiences
                 </h1>
-                <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
+                <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
                   Every brand has a unique story, and I craft bespoke design
                   experiences that reflect your distinct identity. From custom
                   illustrations to tailored visual elements, I bring your vision
@@ -560,12 +562,11 @@ export const FooterSection: FC = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center border-t mt-5 pt-4 gap-4">
-  <div className="text-sm md:text-base">Cookies & Privacy</div>
-  <div className="text-sm md:text-base text-center md:text-right">
-    Copyright © 2024. Rakibul Islam Sarkar. All Rights Reserved
-  </div>
-</div>
-
+        <div className="text-sm md:text-base">Cookies & Privacy</div>
+        <div className="text-sm md:text-base text-center md:text-right">
+          Copyright © 2024. Rakibul Islam Sarkar. All Rights Reserved
+        </div>
+      </div>
     </footer>
   );
 };

@@ -30,7 +30,7 @@ const degularRegular = localFont({
   weight: "100 900",
 });
 const degularLight = localFont({
-  src: "./fonts/Degular/fonnts.com-DegularDemo-light.otf",
+  src: "./fonts/Degular/fonnts.com-DegularDemo-Light.otf",
   variable: "--font-Degular-Meduim",
   weight: "100 900",
 });

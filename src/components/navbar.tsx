@@ -6,7 +6,7 @@ import { MoveUpRight } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-type Props = {};
+
 
 const menuLinks = [
   { path: "/", label: "HOME" },
@@ -16,7 +16,7 @@ const menuLinks = [
   { path: "/contact", label: "CONTACT" },
 ];
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);

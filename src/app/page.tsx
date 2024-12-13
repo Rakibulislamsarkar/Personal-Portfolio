@@ -273,20 +273,20 @@ const AboutWrapper = () => {
           <h1 className="text-9xl font-bold font-[degularRegular] leading-[107.52px]">
             Hello there,
             <br />
-            I'm Rakibul
+            I&aposm Rakibul
           </h1>
           <div className="font-[degularLight] flex flex-col gap-4 text-2xl leading-[30px] tracking-[-0.2px]">
             <p>
               I design bespoke brand identities and websites that fit each
               company like a well-tailored suit, ensuring your brand stands out
               digitally and physically. Specialising in brand identity design,
-              I'm also a web designer and Webflow developer with a keen eye for
+              I&aposm also a web designer and Webflow developer with a keen eye for
               typography and motion design.
             </p>
             <p>
               I honed my skills at Coventry University and have created
               impactful visuals for over four years. Guided by Leonardo da
-              Vinci's principle that "Simplicity is the ultimate
+              Vinci&aposs principle that "Simplicity is the ultimate
               sophistication," I bring clarity and elegance to each project.
             </p>
             <p>
@@ -361,7 +361,7 @@ const ServiceMarquee = () => {
                 </h1>
                 <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
                   I specialise in creating digital-first branding that captures
-                  your brand's essence and connects with your audience across
+                  your brand&aposs essence and connects with your audience across
                   all digital platforms. From logos to social media graphics, I
                   design cohesive brand identities that resonate in the online
                   world, ensuring your brand remains consistent, memorable, and
@@ -462,7 +462,7 @@ export const FooterSection: FC = () => {
           <ul className="space-y-4 ">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-2xl md:text-3xl lg:text-4xl hover:underline">
+                <Link href={item.href} className="text-2xl md:text-3xl lg:text-4xl hover:underline  ">
                   {item.label}
                 </Link>
               </li>

@@ -6,14 +6,18 @@ import { MoveUpRight } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-
-
 const menuLinks = [
   { path: "/", label: "HOME" },
   { path: "/work", label: "WORK" },
   { path: "/about", label: "ABOUT" },
   { path: "/blog", label: "BLOG" },
   { path: "/contact", label: "CONTACT" },
+];
+const socialLinks = [
+  { href: "https://www.instagram.com/rakibul_islam_sarkar/", label: "Instagram" },
+  { href: "https://x.com/Rakibul1019", label: "Twitter" },
+  { href: "www.linkedin.com/in/rakibul-islam-sarkar-356aa5256", label: "LinkedIn" },
+  { href: "https://dribbble.com/Kozuki_Oden", label: "Dribbble" },
 ];
 
 const Navbar = () => {
@@ -147,37 +151,35 @@ const Navbar = () => {
           </div>
 
           {/* Footer Section */}
-          <div className="flex items-center justify-between px-8 mb-3">
-            <div className="menu-info flex justify-between w-full max-w-5xl font-medium leading-3">
-              <div className="menu-info-col flex flex-col space-y-2">
-                <a href="#" className="flex items-center space-x-2">
-                  <span className="uppercase">Instagram</span>{" "}
-                  <MoveUpRight size={12} strokeWidth={2.5} />
-                </a>
-                <a href="#" className="flex items-center space-x-2">
-                  <span className="uppercase">LinkedIn</span>{" "}
-                  <MoveUpRight size={12} strokeWidth={2.5} />
-                </a>
-                <a href="#" className="flex items-center space-x-2">
-                  <span className="uppercase">Github</span>{" "}
-                  <MoveUpRight size={12} strokeWidth={2.5} />
-                </a>
-                <a href="#" className="flex items-center space-x-2">
-                  <span className="uppercase">Dribbble</span>{" "}
-                  <MoveUpRight size={12} strokeWidth={2.5} />
-                </a>
-              </div>
-              <div className="menu-info-col flex flex-col space-y-2 justify-center">
-                <p className="uppercase">rakibulislam1019@gmail.com</p>
-                <p>2342 232 343</p>
-              </div>
-            </div>
-            <div className="menu-preview text-center mt-8">
-              <p className="text-black text-xl font-semibold cursor-pointer">
-                View Showreel
-              </p>
-            </div>
-          </div>
+          <nav aria-label="Social media links" className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 mb-6">
+  <div className="menu-info flex flex-col md:flex-row justify-between w-full max-w-5xl font-medium leading-3 space-y-4 md:space-y-0">
+    <ul className="menu-info-col flex flex-col space-y-2">
+      {socialLinks.map((link) => (
+        <li key={link.href} className="flex items-center space-x-2">
+          <Link
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="uppercase text-sm md:text-base flex items-center space-x-2 hover:underline"
+          >
+            <span>{link.label}</span>
+            <MoveUpRight size={12} strokeWidth={2.5} />
+          </Link>
+        </li>
+      ))}
+    </ul>
+    <div className="menu-info-col flex flex-col space-y-2 items-start md:items-center text-sm md:text-base">
+      <p className="uppercase">rakibulislam1019@gmail.com</p>
+      <p>2342 232 343</p>
+    </div>
+  </div>
+  <div className="menu-preview text-center mt-6 md:mt-0">
+    <p className="text-black text-lg md:text-xl font-semibold cursor-pointer">
+      View Showreel
+    </p>
+  </div>
+</nav>
+
         </div>
       </div>
     </div>

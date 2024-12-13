@@ -465,10 +465,10 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { href: "https://instagram.com", label: "Instagram" },
-  { href: "https://twitter.com", label: "Twitter" },
-  { href: "https://linkedin.com", label: "LinkedIn" },
-  { href: "https://behance.net", label: "Behance" },
+  { href: "https://www.instagram.com/rakibul_islam_sarkar/", label: "Instagram" },
+  { href: "https://x.com/Rakibul1019", label: "Twitter" },
+  { href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256", label: "LinkedIn" },
+  { href: "https://dribbble.com/Kozuki_Oden", label: "Dribbble" },
 ];
 
 export const FooterSection: FC = () => {

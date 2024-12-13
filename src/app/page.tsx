@@ -261,8 +261,9 @@ const TextContainer: React.FC<{ title: string }> = ({ title }) => {
 // About Wrapper Component
 const AboutWrapper = () => {
   return (
-    <section className="about-wrapper h-screen flex items-center mt-20">
-      <div className="about-container flex flex-1 px-2 gap-3">
+    <section className="about-wrapper h-auto sm:h-screen flex items-center mt-20">
+      <div className="about-container flex flex-col sm:flex-row px-4 gap-3  w-full">
+        {/* Left Profile Section */}
         <div className="left-profile flex-1 flex items-center justify-center rounded-[12px] overflow-hidden h-screen">
           <Image
             src="/profile.jpg"
@@ -274,24 +275,23 @@ const AboutWrapper = () => {
           />
         </div>
 
-        <div className="right-about flex-1 px-10 py-5 text-gray-800 flex flex-col justify-between bg-white rounded-[12px] h-screen">
-          <h1 className="text-9xl font-bold font-[degularRegular] leading-[107.52px]">
-            Hello there,
-            <br />
-            I&aposm Rakibul
+        {/* Right About Section */}
+        <div className="right-about flex-1 px-6 md:px-10 py-6 sm:py-10 text-gray-800 flex flex-col justify-between gap-11 bg-white rounded-[12px] h-auto sm:h-screen">
+          <h1 className="text-4xl md:text-6xl lg:text-9xl font-bold font-[degularRegular] leading-[50px] sm:leading-[70px] lg:leading-[107.52px]">
+            Hello there, I&apos;m Rakibul
           </h1>
-          <div className="font-[degularLight] flex flex-col gap-4 text-2xl leading-[30px] tracking-[-0.2px]">
+          <div className="font-[degularLight] flex flex-col text-base sm:text-2xl lg:text-2xl leading-[20px] md:leading-[30px] lg:leading-[30px] tracking-[-0.2px] sm:tracking-[-0.5px]">
             <p>
               I design bespoke brand identities and websites that fit each
               company like a well-tailored suit, ensuring your brand stands out
               digitally and physically. Specialising in brand identity design,
-              I&aposm also a web designer and Webflow developer with a keen eye
+              I&apos;m also a web designer and Webflow developer with a keen eye
               for typography and motion design.
             </p>
             <p>
               I honed my skills at Coventry University and have created
               impactful visuals for over four years. Guided by Leonardo da
-              Vinci&aposs principle that "Simplicity is the ultimate
+              Vinci&apos;s principle that "Simplicity is the ultimate
               sophistication," I bring clarity and elegance to each project.
             </p>
             <p>
@@ -365,7 +365,7 @@ const ServiceMarquee = () => {
               />
               <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-between items-center p-4 bg-opacity-50">
                 <h1 className="font-[degularRegular] text-[15vw] lg:text-[92.16px] font-bold leading-[0.8] tracking-[-3px]">
-                Digital First Branding
+                  Digital First Branding
                 </h1>
                 <p className="text-[4vw] sm:text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[1.2]">
                   I specialize in creating digital-first branding that captures

@@ -340,7 +340,7 @@ const ServiceMarquee = () => {
                 (word, index) => (
                   <h1
                     key={`${word}-${index}`}
-                    className="relative -translate-y-10 text-[15rem] lg:text-[250px] font-[degularLight] leading-300 mx-16  lg:tracking-[-5px] tracking-[-1.5rem]"
+                    className="relative -translate-y-10 text-[15rem] lg:text-[250px] font-[degularLight] leading-300 mx-16  lg:tracking-[-5px] tracking-[-1.2rem]"
                   >
                     {word}
                   </h1>

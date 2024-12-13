@@ -196,7 +196,7 @@ const SectionWork = () => {
 };
 
 // Horizontal Scroll Carousel Component
-const HorizontalScrollCarousel = () => {
+const HorizontalScrollCarousel: React.FC = () => {
   const targetRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -205,9 +205,12 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-55%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[300vh]">
+    <section ref={targetRef} className="relative h-[300vh] md:h-[300vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-4">
+        <motion.div 
+          style={{ x }} 
+          className="flex flex-col md:flex-row gap-4 px-4 md:px-0"
+        >
           {cards.map((card) => (
             <Card card={card} key={card.id} />
           ))}
@@ -222,7 +225,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
   return (
     <div
       key={card.id}
-      className="group relative h-[650px] w-[812px] overflow-hidden flex flex-col rounded-3xl"
+      className="group relative h-[500px] md:h-[650px] w-full md:w-[812px] overflow-hidden flex flex-col rounded-3xl mb-8 md:mb-0"
     >
       <ImageContainer url={card.url} />
       <TextContainer title={card.title} />
@@ -239,7 +242,7 @@ const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="w-full h-[75%] object-cover rounded-t-3xl"
+      className="w-full h-[70%] md:h-[75%] object-cover rounded-t-3xl"
     />
   );
 };
@@ -247,8 +250,8 @@ const ImageContainer: React.FC<{ url: string }> = ({ url }) => {
 // Text Container Component
 const TextContainer: React.FC<{ title: string }> = ({ title }) => {
   return (
-    <div className="h-[25%] w-full flex items-center">
-      <p className="text-5xl font-[branch] max-w-[90%]">{title}</p>
+    <div className="h-[30%] md:h-[25%] w-full flex items-center p-4 md:p-6">
+      <p className="text-3xl md:text-5xl font-[branch] max-w-full md:max-w-[90%]">{title}</p>
     </div>
   );
 };
@@ -280,8 +283,8 @@ const AboutWrapper = () => {
               I design bespoke brand identities and websites that fit each
               company like a well-tailored suit, ensuring your brand stands out
               digitally and physically. Specialising in brand identity design,
-              I&aposm also a web designer and Webflow developer with a keen eye for
-              typography and motion design.
+              I&aposm also a web designer and Webflow developer with a keen eye
+              for typography and motion design.
             </p>
             <p>
               I honed my skills at Coventry University and have created
@@ -330,14 +333,16 @@ const ServiceMarquee = () => {
         >
           {[...Array(2)].map((_, index) => (
             <div key={index} className="inline-flex">
-              {["Service - 1", "Service - 2", "Service - 3"].map((word, index) => (
-                <h1
-                  key={`${word}-${index}`}
-                  className="relative -translate-y-10 text-[250px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-5px]"
-                >
-                  {word}
-                </h1>
-              ))}
+              {["Service - 1", "Service - 2", "Service - 3"].map(
+                (word, index) => (
+                  <h1
+                    key={`${word}-${index}`}
+                    className="relative -translate-y-10 text-[250px] font-[degularLight] leading-300 mx-16 scale-50 sm:scale-75 md:scale-90 lg:scale-100 tracking-[-5px]"
+                  >
+                    {word}
+                  </h1>
+                )
+              )}
             </div>
           ))}
         </div>
@@ -361,11 +366,11 @@ const ServiceMarquee = () => {
                 </h1>
                 <p className="text-[24.576px] tracking-[0.2px] font-[degularLight] leading-[27px]">
                   I specialise in creating digital-first branding that captures
-                  your brand&aposs essence and connects with your audience across
-                  all digital platforms. From logos to social media graphics, I
-                  design cohesive brand identities that resonate in the online
-                  world, ensuring your brand remains consistent, memorable, and
-                  impactful in the digital age.
+                  your brand&aposs essence and connects with your audience
+                  across all digital platforms. From logos to social media
+                  graphics, I design cohesive brand identities that resonate in
+                  the online world, ensuring your brand remains consistent,
+                  memorable, and impactful in the digital age.
                 </p>
               </div>
             </div>
@@ -429,40 +434,84 @@ const ServiceMarquee = () => {
 // Footer
 
 const navItems = [
-  { href: '/work', label: 'Work' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/blog', label: 'Blog' },
-]
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Blog" },
+];
 
 const socialLinks = [
-  { href: 'https://instagram.com', label: 'Instagram' },
-  { href: 'https://twitter.com', label: 'Twitter' },
-  { href: 'https://linkedin.com', label: 'LinkedIn' },
-  { href: 'https://behance.net', label: 'Behance' },
-]
+  { href: "https://instagram.com", label: "Instagram" },
+  { href: "https://twitter.com", label: "Twitter" },
+  { href: "https://linkedin.com", label: "LinkedIn" },
+  { href: "https://behance.net", label: "Behance" },
+];
 
 export const FooterSection: FC = () => {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
+  const textRefer = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const text = textRefer.current;
+    if (text) {
+      // Split the text into individual letters
+      const letters = text.innerText.split("");
+
+      // Replace the content with span-wrapped letters
+      text.innerHTML = letters
+        .map((letter) =>
+          letter.trim() === ""
+            ? `<span class="letter">&nbsp;</span>` // Handle spaces
+            : `<span class="letter">${letter}</span>`
+        )
+        .join("");
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.fromTo(
+        text.querySelectorAll(".letter"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.05,
+          duration: 20,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: text,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 2,
+          },
+        }
+      );
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    
-    console.log('Submitting email:', email)
-    setEmail('')
-  }
+    e.preventDefault();
+
+    console.log("Submitting email:", email);
+    setEmail("");
+  };
 
   return (
     <footer className="w-full min-h-screen bg-[#0b1215] text-[#f9fdfe] font-[degularRegular] flex flex-col justify-between p-8">
-      <h2 className="text-7xl sm:text-8xl md:text-9xl lg:text-[15rem] tracking-tighter mb-12">
+      <h2
+        ref={textRefer}
+        className="text-8xl sm:text-8xl md:text-9xl lg:text-[15rem] tracking-tighter mb-12"
+      >
         Let's talk
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <nav aria-label="Footer navigation">
-          <ul className="space-y-4 ">
+          <ul>
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-2xl md:text-3xl lg:text-4xl hover:underline  ">
+                <Link
+                  href={item.href}
+                  className="text-4xl md:text-3xl lg:text-4xl hover:underline"
+                >
                   {item.label}
                 </Link>
               </li>
@@ -470,14 +519,14 @@ export const FooterSection: FC = () => {
           </ul>
         </nav>
         <nav aria-label="Social media links">
-          <ul className="space-y-4">
+          <ul>
             {socialLinks.map((link) => (
               <li key={link.href}>
-                <Link 
-                  href={link.href} 
-                  target="_blank" 
+                <Link
+                  href={link.href}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-2xl md:text-3xl lg:text-4xl hover:underline"
+                  className="text-4xl md:text-3xl lg:text-4xl hover:underline"
                 >
                   {link.label}
                 </Link>
@@ -489,7 +538,10 @@ export const FooterSection: FC = () => {
           <h3 className="text-2xl md:text-3xl lg:text-4xl mb-4 font-[branch]">
             Leave an email and I'll get back to you
           </h3>
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <input
               type="email"
               value={email}
@@ -498,7 +550,7 @@ export const FooterSection: FC = () => {
               required
               className="p-5 bg-[#333333] rounded-full w-full outline-none focus:ring-2 focus:ring-blue-600 transition-all shadow-[rgba(22,22,22,0.4)_0px_0px_20px_0px,rgba(59,59,59,0.1)_0px_1px_20px_4px_inset,rgba(160,160,160,0.22)_-1px_-1px_5px_0px,rgba(14,14,14,0.89)_1px_1px_7px_0px]"
             />
-            <button 
+            <button
               type="submit"
               className="p-5 bg-[#f4f4f4] text-black rounded-full hover:bg-white transition-colors"
             >
@@ -507,10 +559,13 @@ export const FooterSection: FC = () => {
           </form>
         </div>
       </div>
-      <div className="flex justify-between border-t mt-5">
-        <div>Cookies & Privacy</div>
-        <div>Copyright © 2024. Rakibul Islam Sarkar. All Rights Reserved</div>
-      </div>
+      <div className="flex flex-col md:flex-row justify-between items-center border-t mt-5 pt-4 gap-4">
+  <div className="text-sm md:text-base">Cookies & Privacy</div>
+  <div className="text-sm md:text-base text-center md:text-right">
+    Copyright © 2024. Rakibul Islam Sarkar. All Rights Reserved
+  </div>
+</div>
+
     </footer>
-  )
-}
+  );
+};

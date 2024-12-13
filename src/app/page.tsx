@@ -170,10 +170,10 @@ const SectionIntro = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-[70vh]">
+    <div className="w-auto px-4 min-h-[60vh] lg:min-h-[70vh]">
       <h1
         ref={textRef}
-        className="font-[branch] text-[61.44px] leading-[75.12px] tracking-[-1px] text-center mx-auto max-w-[1300px]"
+        className="font-[branch]  text-[35px] lg:text-[61.44px] leading-10 lg:leading-[75.12px] lg:tracking-[-1px] text-center mx-auto max-w-[1300px]"
       >
         I am a digital-first brand identity & web designer and a Webflow, Figma
         developer. I help companies connect with their audience, expand their

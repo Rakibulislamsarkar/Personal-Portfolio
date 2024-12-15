@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { ReactLenis} from "lenis/react";
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -57,6 +58,7 @@ export default function RootLayout({
 
         <ReactLenis root options={{ autoRaf: true }}>
           {children}
+          
         </ReactLenis>
       </body>
     </html>

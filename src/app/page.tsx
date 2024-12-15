@@ -6,6 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all"; // Import ScrollTrigger
 import { motion, useTransform, useScroll } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import MarqueeWithImageTrail from "@/components/MarqueeWithImageTrail";
 
 interface CardProps {
   card: {
@@ -40,6 +42,7 @@ const cards = [
 
 // Main component
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <LoadingScreen />
@@ -94,44 +97,34 @@ const LoadingScreen: React.FC = () => {
 
 // Marquee Component
 const Marquee = () => {
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    if (!marquee) return;
-
-    const animate = () => {
-      if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
-        marquee.scrollLeft = 0;
-      } else {
-        marquee.scrollLeft += 2;
-      }
-      requestAnimationFrame(animate);
-    };
-
-    const animation = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animation);
-  }, []);
+  const images = [
+    '/shapes/shape-1.svg',
+    '/shapes/shape-2.svg',
+    '/shapes/shape-3.svg',
+    '/shapes/shape-4.svg',
+    '/shapes/shape-5.svg',
+    '/shapes/shape-6.svg',
+    '/shapes/shape-7.svg',
+    '/shapes/shape-8.svg',
+    '/shapes/shape-9.svg',
+    '/shapes/shape-10.svg',
+    '/shapes/shape-11.svg',
+    '/shapes/shape-12.svg',
+    '/shapes/shape-13.svg',
+    '/shapes/shape-14.svg',
+    '/shapes/shape-15.svg',
+    '/shapes/shape-16.svg',
+    '/shapes/shape-17.svg',
+    '/shapes/shape-18.svg',
+    '/shapes/shape-19.svg',
+    '/shapes/shape-20.svg',
+    // ... rest of your images
+  ];
 
   return (
-    <div className="w-full h-screen flex items-center overflow-hidden">
-      <div
-        ref={marqueeRef}
-        className="whitespace-nowrap overflow-x-hidden w-full"
-      >
-        {[...Array(2)].map((_, index) => (
-          <div key={index} className="inline-flex">
-            {["Creative", "Frontend", "Designer"].map((word) => (
-              <h1
-                key={word}
-                className="relative -translate-y-10 text-[15rem] lg:text-[250px] font-[degularLight] leading-300 mx-16  tracking-[-20px]"
-              >
-                {word}
-              </h1>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+    <main>
+      <MarqueeWithImageTrail images={images} />
+    </main>
   );
 };
 
@@ -280,7 +273,7 @@ const AboutWrapper = () => {
   return (
     <section className="about-wrapper min-h-screen flex items-center mt-20">
       <div className="about-container flex flex-col lg:flex-row gap-3 w-full px-4 md:px-6">
-      <div className="flex lg:hidden">
+        <div className="flex lg:hidden">
           <h1 className="text-[150px] font-[degularLight] tracking-[-10px] leading-[245.76px] px-4">
             About
           </h1>
@@ -465,14 +458,21 @@ const navItems = [
 ];
 
 const socialLinks = [
-  { href: "https://www.instagram.com/rakibul_islam_sarkar/", label: "Instagram" },
+  {
+    href: "https://www.instagram.com/rakibul_islam_sarkar/",
+    label: "Instagram",
+  },
   { href: "https://x.com/Rakibul1019", label: "Twitter" },
-  { href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256", label: "LinkedIn" },
+  {
+    href: "https://www.linkedin.com/in/rakibul-islam-sarkar-356aa5256",
+    label: "LinkedIn",
+  },
   { href: "https://github.com/Rakibulislamsarkar", label: "Github" },
   { href: "https://dribbble.com/Kozuki_Oden", label: "Dribbble" },
 ];
 
 export const FooterSection: FC = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const textRefer = useRef<HTMLHeadingElement>(null);
 
@@ -576,8 +576,9 @@ export const FooterSection: FC = () => {
               className="p-5 bg-[#333333] rounded-full w-full outline-none focus:ring-2 focus:ring-blue-600 transition-all shadow-[rgba(22,22,22,0.4)_0px_0px_20px_0px,rgba(59,59,59,0.1)_0px_1px_20px_4px_inset,rgba(160,160,160,0.22)_-1px_-1px_5px_0px,rgba(14,14,14,0.89)_1px_1px_7px_0px]"
             />
             <button
-              type="submit"
+              type="button"
               className="p-5 bg-[#f4f4f4] text-black rounded-full hover:bg-white transition-colors"
+              onClick={() => router.push("/contact")}
             >
               Submit
             </button>
